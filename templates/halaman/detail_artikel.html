@@ -15,7 +15,7 @@
                     <img src="{% static "halaman/assets/img/a" %} {% endcomment %}
                     {% endif %}
                     <h3 class="title">{{ artikel.judul }}</h3>
-                    <p>{{ artikel.isi }}</p>
+                    <p>{{ artikel.isi|safe }}</p>
                     <blockquote>
                         {% comment %} <p>
                             “And thank you for turning my personal jean jacket into a couture piece.”
