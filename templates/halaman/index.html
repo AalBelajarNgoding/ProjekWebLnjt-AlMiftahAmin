@@ -1,0 +1,124 @@
+{% extends 'halaman/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('{% static "halaman/assets/img/4k-earth.webp" %}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h1 class="title">Selamat datang di Web Saya</h1>
+                <h4>Ada beberapa info yang saya sajikan</h4>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="main main-raised">
+    <div class="container">
+        <div class="section">
+            <div class="section section-blog-info">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+            
+                        {% comment %} <div class="row">
+                            <div class="col-md-6">
+                                <div class="blog-tags mb-5">
+                                    Tags:
+                                    <span class="label label-primary">Photography</span>
+                                    <span class="label label-primary">Stories</span>
+                                    <span class="label label-primary">Castle</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#pablo" class="btn btn-google btn-round pull-right">
+                                    <i class="fa fa-google"></i> 232
+                                </a>
+                                <a href="#pablo" class="btn btn-twitter btn-round pull-right">
+                                    <i class="fa fa-twitter"></i> 910
+                                </a>
+                                <a href="#pablo" class="btn btn-facebook btn-round pull-right">
+                                    <i class="fa fa-facebook-square"></i> 872
+                                </a>
+            
+                            </div>
+                        </div> {% endcomment %}
+            
+                        <hr />
+            
+                        {% comment %} <div class="card card-profile card-plain">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="card-avatar"{% static 'halaman/assets/img/faces/card-profile1-square.jpg' %}">
+                                        </a>
+                                    <div class="ripple-container"></div></div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h4 class="card-title">Alec Thompson</h4>
+                                    <p class="description">I've been trying to figure out the bed design for the master bedroom at our Hidden Hills compound...I like good music from Youtube.</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default pull-right btn-round">Follow</button>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+            
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <ul class="nav nav-pills nav-pills-primary">
+                        <li {% if menu_aktif == 'ALL' %} class="activate"{% endif %}>
+                            <a href="/">All</a>
+                        </li>
+                        
+                        {% for kategori in data_kategori %}
+                        <li {% if menu_aktif == kategori.nama %} class="activate"{% endif %}>
+                            <a href="/?kategori={{ kategori.nama }}">{{ kategori }}</a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="row">
+                {% for artikel in data_artikel %}
+
+                <div class="col-md-4">
+                    <div class="card card-plain card-blog">
+                        <div class="catd-image">
+                            {% if artikel.thumbnail %}
+                              <img style="width: 70%;" class="img img-raised" src="{{ artikel.thumbnail.url }}" />
+                            {% comment %} {% else %} {% endcomment %}
+                            {% comment %} <img src="{% static "halaman/assets/img/a" %} {% endcomment %}
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <h6 class="category text-info">{{ artikel.kategori }}</h6>
+                            <h4 class="card-title"><a href="{% url 'detail_artikel' artikel.slug %}">{{ artikel.judul }}</a></h4>
+                            <p class="card-description">
+                                {{ artikel.isi | truncatechars:'20' }}<a href="{% url 'detail_artikel' artikel.slug %}">Read More</a>
+                            </p>
+                            <span class="label label-info">{{ artikel.created_at }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col" style="margin: 30px;">
+                    <p class="text-center">Data tidak ada....</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock js %}
